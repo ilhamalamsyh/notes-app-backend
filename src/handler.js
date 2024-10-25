@@ -91,7 +91,10 @@ const editNotesHandler = (request, h) => {
 
     const response = h.response({
       status: 'Success',
-      message: 'Catatan berhasil diperbarui'
+      message: 'Catatan berhasil diperbarui',
+      data: {
+        note: notes[index]
+      }
     });
 
     response.code(200);
