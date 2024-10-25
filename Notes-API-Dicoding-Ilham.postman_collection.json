@@ -1,0 +1,399 @@
+{
+	"info": {
+		"_postman_id": "574b8b1f-9ad6-48b4-b987-0a8a7b6f2e0e",
+		"name": "Notes-API-Dicoding-Ilham",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8810985"
+	},
+	"item": [
+		{
+			"name": "adding-notes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('response status code should have 201 value', () => {",
+							"    pm.response.to.have.status(201);",
+							"})",
+							"",
+							"pm.test('response Content-Type header should have application/json value', () => {",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8')",
+							"});",
+							"",
+							"pm.test('response body should be an object', () => {",
+							"    const jsonResponse = pm.response.json();",
+							"    pm.expect(jsonResponse).to.be.an('object')",
+							"});",
+							"",
+							"pm.test('response body should have the correct property and value', () => {",
+							"    const jsonResponse = pm.response.json();",
+							"",
+							"    pm.expect(jsonResponse).to.ownProperty('status');",
+							"    pm.expect(jsonResponse.status).to.equals('Success');",
+							"",
+							"    pm.expect(jsonResponse).to.ownProperty('message');",
+							"    pm.expect(jsonResponse.message).to.equals('Catatan berhasil ditambahkan');",
+							"",
+							"    pm.expect(jsonResponse).to.ownProperty('data');",
+							"    pm.expect(jsonResponse.data).to.be.an('object');",
+							"});",
+							"",
+							"pm.test('response body data should have noteId property and not equal to empty', () => {",
+							"    const jsonResponse = pm.response.json();",
+							"    const {data} = jsonResponse;",
+							"",
+							"    pm.expect(data).to.ownProperty('noteId');",
+							"    pm.expect(data.noteId).to.not.equals('');",
+							"",
+							"    pm.environment.set('noteId', data.noteId);",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Catatan A\",\n    \"tags\": [\n        \"Android\",\n        \"Web\"\n    ],\n    \"body\": \"Isi dari catatan A\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://54.151.254.115:8080/notes",
+					"protocol": "http",
+					"host": [
+						"54",
+						"151",
+						"254",
+						"115"
+					],
+					"port": "8080",
+					"path": [
+						"notes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "notes-list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('response status code should have 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"pm.test('response header Content-Type should have application/json value', () => {",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8')",
+							"})",
+							"",
+							"pm.test('response body should an object', () => {",
+							"    const jsonResponse = pm.response.json();",
+							"",
+							"    pm.expect(jsonResponse).to.be.an('object');",
+							"});",
+							"",
+							"pm.test('response body should have the correct property and value', () => {",
+							"    const jsonResponse = pm.response.json();",
+							"",
+							"    pm.expect(jsonResponse).to.have.ownProperty('status');",
+							"    pm.expect(jsonResponse.status).to.equals('Success');",
+							"",
+							"    pm.expect(jsonResponse).to.have.ownProperty('data');",
+							"    pm.expect(jsonResponse.data).to.be.an('object');",
+							"})",
+							"",
+							"pm.test('response body data should have a notes array and contains at least 1 item', () => {",
+							"    const jsonResponse = pm.response.json();",
+							"    const { data } = jsonResponse;",
+							"",
+							"    pm.expect(data).to.have.ownProperty('notes');",
+							"    pm.expect(data.notes).to.be.an('array');",
+							"    pm.expect(data.notes).lengthOf.at.least(1);",
+							"",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://54.151.254.115:8080/notes",
+					"protocol": "http",
+					"host": [
+						"54",
+						"151",
+						"254",
+						"115"
+					],
+					"port": "8080",
+					"path": [
+						"notes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "notes-detail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('response status code should have 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"pm.test('response header Content-Type should have application/json value', () => {",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8')",
+							"})",
+							"",
+							"pm.test('response body should an object', () => {",
+							"    const jsonResponse = pm.response.json();",
+							"",
+							"    pm.expect(jsonResponse).to.be.an('object');",
+							"});",
+							"",
+							"pm.test('response body should have the correct property and value', () => {",
+							"    const jsonResponse = pm.response.json();",
+							"",
+							"    pm.expect(jsonResponse).to.have.ownProperty('status');",
+							"    pm.expect(jsonResponse.status).to.equals('Success');",
+							"",
+							"    pm.expect(jsonResponse).to.have.ownProperty('data');",
+							"    pm.expect(jsonResponse.data).to.be.an('object');",
+							"})",
+							"",
+							"pm.test('response body data should contains note object', () => {",
+							"    const jsonResponse = pm.response.json();",
+							"    const { data } = jsonResponse;",
+							"",
+							"    pm.expect(data).to.have.ownProperty('note');",
+							"    pm.expect(data.note).to.be.an('object');",
+							"});",
+							"",
+							"pm.test('note object should contain correct value for id, title, body, and tags', () => {",
+							"    const jsonResponse = pm.response.json();",
+							"    const { data: { note } } = jsonResponse;",
+							"",
+							"    const expectedId = pm.environment.get('noteId');",
+							"    const expectedTitle = 'Catatan A';",
+							"    const expectedTags = [\"Android\", \"Web\"];",
+							"    const expectedBody = 'Isi dari catatan A';",
+							"",
+							"    pm.expect(note).to.have.ownProperty('id');",
+							"    pm.expect(note.id).to.equals(expectedId);",
+							"",
+							"    pm.expect(note).to.have.ownProperty('title');",
+							"    pm.expect(note.title).to.equals(expectedTitle);",
+							"",
+							"    pm.expect(note).to.have.ownProperty('tags');",
+							"    pm.expect(note.tags).to.eql(expectedTags);",
+							"",
+							"    pm.expect(note).to.have.ownProperty('body');",
+							"    pm.expect(note.body).to.equals(expectedBody);",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://54.151.254.115:8080/notes/{{noteId}}",
+					"protocol": "http",
+					"host": [
+						"54",
+						"151",
+						"254",
+						"115"
+					],
+					"port": "8080",
+					"path": [
+						"notes",
+						"{{noteId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-notes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('response status code should have 200 value', () => {",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"pm.test('response Content-Type header should have application/json value', () => {",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8')",
+							"});",
+							"",
+							"pm.test('response body should be an object', () => {",
+							"    const jsonResponse = pm.response.json();",
+							"    pm.expect(jsonResponse).to.be.an('object')",
+							"});",
+							"",
+							"pm.test('response body should have the correct property and value', () => {",
+							"    const jsonResponse = pm.response.json();",
+							"",
+							"    pm.expect(jsonResponse).to.ownProperty('status');",
+							"    pm.expect(jsonResponse.status).to.equals('Success');",
+							"",
+							"    pm.expect(jsonResponse).to.ownProperty('message');",
+							"    pm.expect(jsonResponse.message).to.equals('Catatan berhasil diperbarui');",
+							"});",
+							"",
+							"pm.test('when request the updated note', () => {",
+							"    const noteId = pm.environment.get('noteId');",
+							"    ",
+							"    pm.sendRequest(`http://54.151.254.115:8080/notes/${noteId}`, (error, response) => {",
+							"        if(!error){",
+							"            pm.test('then updated note should contain the latest data', () => {",
+							"                const jsonResponse = pm.response.json();",
+							"                const { data: { note } } = jsonResponse;",
+							"",
+							"                const expectedTitle = 'Catatan A Revised';",
+							"                const expectedTags = ['Android', 'Web'];",
+							"                const expectedBody = 'Isi dari Catatan A Revised';",
+							"",
+							"                pm.expect(note.title).to.equals(expectedTitle);",
+							"                pm.expect(note.tags).to.eql(expectedTags);",
+							"                pm.expect(note.body).to.equals(expectedBody);",
+							"            })",
+							"        }",
+							"    })",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Catatan A Revised\",\n    \"tags\": [\"Android\", \"Web\"],\n    \"body\": \"Isi dari Catatan A Revised\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://54.151.254.115:8080/notes/{{noteId}}",
+					"protocol": "http",
+					"host": [
+						"54",
+						"151",
+						"254",
+						"115"
+					],
+					"port": "8080",
+					"path": [
+						"notes",
+						"{{noteId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete-note",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('response status code should have 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"pm.test('response header Content-Type should have application/json value', () => {",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8')",
+							"})",
+							"",
+							"pm.test('response body should an object', () => {",
+							"    const jsonResponse = pm.response.json();",
+							"",
+							"    pm.expect(jsonResponse).to.be.an('object');",
+							"});",
+							"",
+							"pm.test('response body should have the correct property and value', () => {",
+							"    const jsonResponse = pm.response.json();",
+							"",
+							"    pm.expect(jsonResponse).to.have.ownProperty('status');",
+							"    pm.expect(jsonResponse.status).to.equals('Success');",
+							"",
+							"    pm.expect(jsonResponse).to.have.ownProperty('message');",
+							"    pm.expect(jsonResponse.message).to.equals('Notes berhasil dihapus')",
+							"})",
+							"",
+							"pm.test('when request the deleted note', () => {",
+							"    const noteId = pm.environment.get('noteId');",
+							"    pm.sendRequest(`http://54.151.254.115:8080/notes/${noteId}`, (error, response) => {",
+							"        if(!error){",
+							"            pm.test('the deleted noted should be not found', () => {",
+							"                pm.expect(response.code).to.equals(404);",
+							"",
+							"                const jsonResponse = response.json();",
+							"                console.log('jsonResponse: ', jsonResponse)",
+							"                pm.expect(jsonResponse.status).to.equals('Failed');",
+							"                pm.expect(jsonResponse.message).to.equals('Catatan tidak ditemukan');",
+							"            })",
+							"        }",
+							"    })",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://54.151.254.115:8080/notes/{{noteId}}",
+					"protocol": "http",
+					"host": [
+						"54",
+						"151",
+						"254",
+						"115"
+					],
+					"port": "8080",
+					"path": [
+						"notes",
+						"{{noteId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
